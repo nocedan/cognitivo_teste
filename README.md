@@ -37,4 +37,4 @@ K-fold Stratifyed Cross Validation. Para garantir que o modelo é robusto a vari
 
 Temos um modelo bom dentro do possível, diante do desbalanceamento da amostra. Foram feitas correções para garantir consistência dos dados de Input, foram testadas diferentes técnicas e foi corrigido o bias da amostra que tende a levar as estimativas para a média.
 
-Mostra-se que há uma ordenação dos resultados (predito x resposta), no entanto claramente não se acerta a média de quality em validação. Minha recomendação é que o modelo seja utilizado para ordenar e que um trabalho com mais amostras nos extremos seja feito para melhorar a qualidade da previsão dos valores absolutos de quality.
+Mostra-se que há uma ordenação dos resultados (predito x resposta), no entanto claramente há um erro maior para os valores extremos de quality em validação, onde haviam poucas instâncias de treino. Minha recomendação é que o modelo seja utilizado para ordenar e que um trabalho com mais amostras nos extremos seja feito para melhorar a qualidade da previsão dos valores absolutos de quality.
