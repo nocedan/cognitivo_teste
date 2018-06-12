@@ -2,29 +2,39 @@
 
 Respostas às perguntas propostas:
 
-a. Como foi a definição da sua estratégia de modelagem?
+#### a. Como foi a definição da sua estratégia de modelagem?
 
-1. Fiz um pré processamento dados: subir os dados para um dataframe, garantindo consistência. Após olhar as distribuições das variáveis individualmente e em conjunto, decidi fazer uma inputação de missings para o campo 'alcohol' utilizando uma regressão. Também foi feita uma correção no campo 'density'. Finalmente, fiz uma normalização dos campos e guardei os dados pré processados em um pkl.
+1. Foi feito um pré processamento dados no pandas garantindo consistência na leitura do csv. Após examinar as distribuições das variáveis individualmente e em conjunto, foi feita uma inputação de missings para o campo 'alcohol' utilizando uma regressão. Também foi feita uma correção no campo 'density'. Finalmente, após a normalização dos campos, os dados pré processados foram armazenados em um pkl.
 
-2. Para obter um baseline de performance, testei de maneira rápida (sem otimização) uma regressão simples e verifiquei um r2 de 0.31.
+2. Para obter um baseline de performance, foi feito uma  regressão teste (sem otimização) com um r^2 de 0.31. Analisando a distribuição dos erros de acordo com a resposta "quality", nota-se que devido ao pouco volume de amostras para os valores 3, 4, 8 e 9. O erro da regressão era muito mais alto nos extremos do que nos valores próximos da média.
 
-3. Na tentativa de melhorar a performace, fiz uma "feature engeneering" para criar uma quantidade substancial de novas features.
+3. Para lidar com o baixo volume de amostras nos extremos de 'quality', foi feita uma reamostragem, na amostra de treino, sendo que na amostra final, todos os valores de 'quality' têm o mesmo número de ocorrências.
 
-4. Finalmente, testei diversas técnicas e procurei fazer uma otimização de performance através da variação dos hiperparametros.
+4. Foram introduzidas features polinomiais para que no modelo houvesse interações entre features.
 
-b. Como foi definida a função de custo utilizada?
+5. Foram testadas algumas técnicas (Gradient Boosting, Lasso, KNN...) e foi feita uma validação cruzada, com amostras extratificadas pelo campo resposta, para uma melhor aferição de qual seria a performance em "produção" ou novas amostras de previsão.
 
-A função de custo depende da técnica utilizada. No caso do Lasso, não é necessário se preocupar com multicolinearidade, poque isso é feito na otimização da função de custo. Para a regressão simples, é necessário fazer uma seleção de features não correlacionadas.
+#### b. Como foi definida a função de custo utilizada?
 
-c. Qual foi o critério utilizado na seleção do modelo final?
+A função de custo depende da técnica utilizada.
 
-Os critérios foram maior performance, e menor complexidade, nessa ordem.
+Na regressão simples = mínimos quadrados
+No caso do Lasso = mínimos quadrados + regularização l1
+Gradient Boosting = soma dos erros absolutos (robusta a outliers)
 
-d. Qual foi o critério utilizado para validação do modelo? Por que escolheu utilizar
+Vale ressaltar, que caso não fosse feito balanceamento da amostra, seria necessário incluir um peso na função de custo, privilegiando instâncias cuja variável resposta é menos frequente.
+
+#### c. Qual foi o critério utilizado na seleção do modelo final?
+
+R^2, RMSE e média por classe do RMSE. Sendo esse último o fator de decisão entre os modelos, dado que garante que diferente do modelo baseline, a regressão acerta fora da média de 'quality'.
+
+#### d. Qual foi o critério utilizado para validação do modelo? Por que escolheu utilizar
 este método?
 
-K-fold. Cross validation. Para garantir que o modelo é robusto a variações da amostra.
+K-fold Stratifyed Cross Validation. Para garantir que o modelo é robusto a variações da amostra e aproveitar o máximo de amostras para treinamento.
 
-e. Quais evidências você possui de que seu modelo é suficientemente bom?
+#### e. Quais evidências você possui de que seu modelo é suficientemente bom?
 
-O prórprio processo de análise e pré-processamento, a metodologia para criação e seleção de features e as técnicas utilizadas de forma consistente garantem que possíveis incrementos de performance além do que temos, serão marginais. Além disso, no processo de otimização da performance baseline conseguiu-se x% de incremento no r2.
+Temos um modelo bom dentro do possível, diante do desbalanceamento da amostra. Foram feitas correções para garantir consistência dos dados de Input, foram testadas diferentes técnicas e foi corrigido o bias da amostra que tende a levar as estimativas para a média.
+
+Mostra-se que há uma ordenação dos resultados (predito x resposta), no entanto claramente não se acerta a média de quality em validação. Minha recomendação é que o modelo seja utilizado para ordenar e que um trabalho com mais amostras nos extremos seja feito para melhorar a qualidade da previsão dos valores absolutos de quality.
