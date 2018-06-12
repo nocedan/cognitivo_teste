@@ -35,10 +35,6 @@ K-fold Stratifyed Cross Validation. Para garantir que o modelo é robusto a vari
 
 #### e. Quais evidências você possui de que seu modelo é suficientemente bom?
 
-Temos um modelo bom dentro do possível, diante do desbalanceamento da amostra. Foi corrigido o bias da amostra que tende a levar as estimativas para a média, produzindo uma ordenação mais interessante (ver no gráfico do notebook) e também um menor na média por categoria ('quality') do erro quadrático médio de 1.39 a 1.23, abaixo. 
+Temos um modelo bom dentro do possível, diante do desbalanceamento da amostra. Foi corrigido o bias da amostra que tende a levar as estimativas para a média, produzindo uma ordenação mais interessante (ver no gráfico do notebook) e também um menor na média por categoria ('quality') do erro quadrático médio de 1.39 a 1.23.
 
 Mostra-se que há uma ordenação dos resultados (predito x resposta), no entanto claramente há um erro maior para os valores extremos de quality em validação, onde haviam poucas instâncias de treino. Minha recomendação é que o modelo seja utilizado para ordenar e que um trabalho com mais amostras nos extremos seja feito para melhorar a qualidade da previsão dos valores absolutos de quality.
-
-(Mean squared error, Variance Score, RMSE avg per 'quality' value)
-Baseline Linear : 0.54 , 0.29, 1.39
-Optimized Gradient Boosting : 0.68 , 0.11, 1.23
