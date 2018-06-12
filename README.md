@@ -28,10 +28,10 @@ Vale ressaltar, que caso não fosse feito balanceamento da amostra, seria necess
 
 R^2, RMSE e média por classe do RMSE. Sendo esse último o fator de decisão entre os modelos, dado que garante que diferente do modelo baseline, a regressão acerta fora da média de 'quality'.
 
-#### d. Qual foi o critério utilizado para validação do modelo? Por que escolheu utilizar
-este método?
+#### d. Qual foi o critério utilizado para validação do modelo? Por que escolheu utilizar este método?
 
-K-fold Stratifyed Cross Validation. Para garantir que o modelo é robusto a variações da amostra e aproveitar o máximo de amostras para treinamento.
+K-fold Stratified Cross Validation. Para garantir que o modelo é robusto 
+a variações da amostra e aproveitar o máximo de amostras para treinamento.
 
 #### e. Quais evidências você possui de que seu modelo é suficientemente bom?
 
